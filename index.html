@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="aterApp">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CRUD AngularJS + PHP PDO</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- App y servicios -->
+    <script src="app/controllers/usuarios.controller.js"></script>
+    <script src="app/services/usuariosService.js"></script>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body ng-controller="Controller as ctrl">
+    <div ng-if="ctrl.alert.msj" ng-class="ctrl.alert.class" class="alert">{{ ctrl.alert.msj }}</div>
+    <form ng-submit="ctrl.save()">
+      <input type="hidden" ng-model="ctrl.item.id" />
+      <input type="text" ng-model="ctrl.item.nombre" placeholder="Nombre" required />
+      <input type="email" ng-model="ctrl.item.email" placeholder="Email" required />
+      <input type="number" ng-model="ctrl.item.edad" placeholder="Edad" required />
+      <button type="submit">{{ ctrl.item.id ? 'Actualizar' : 'Agregar' }}</button>
+      <button type="button" ng-click="ctrl.cancel()">Cancelar</button>
+    </form>
+    <p data-ng-repeat="i in ctrl.items">
+      {{i}}
+      <button ng-click="ctrl.selectItem(i)">Editar</button>
+      <button ng-click="ctrl.delete(i.id)">Eliminar</button>
+    </p>
+  </body>
+</html>

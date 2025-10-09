@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" ng-app="usuarioApp">
+  <head>
+    <meta charset="UTF-8" />
+    <title>CRUD AngularJS + PHP PDO</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <!-- App y servicios -->
+    <script src="app/app.js"></script>
+    <script src="app/services/usuarioService.js"></script>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+  <body ng-controller="UsuarioController as ctrl">
+    <h1>Usuarios</h1>
+
+    <div ng-if="ctrl.alerta.mensaje" ng-class="ctrl.alerta.clase" class="alert">{{ ctrl.alerta.mensaje }}</div>
+
+    <form ng-submit="ctrl.guardarUsuario()">
+      <input type="hidden" ng-model="ctrl.usuario.id" />
+      <input type="text" ng-model="ctrl.usuario.nombre" placeholder="Nombre" required />
+      <input type="email" ng-model="ctrl.usuario.email" placeholder="Email" required />
+      <input type="number" ng-model="ctrl.usuario.edad" placeholder="Edad" required />
+      <button type="submit">{{ ctrl.usuario.id ? 'Actualizar' : 'Agregar' }}</button>
+      <button type="button" ng-click="ctrl.cancelar()">Cancelar</button>
+    </form>
+
+    <!-- Buscador -->
+    <div class="buscador">
+      <input type="text" ng-model="ctrl.filtro" placeholder="Buscar..." />
+    </div>
+
+    <table>
+      <tr>
+        <th ng-click="ctrl.ordenarPor('id')" ng-class="{'active': ctrl.sortKey === 'id'}">
+          ID
+          <!-- 🔹 Indicador visual -->
+          <span class="sort-icon" ng-class="{'active': ctrl.sortKey === 'id'}">
+            <span ng-if="ctrl.sortKey === 'id' && !ctrl.reverse">↑</span>
+            <span ng-if="ctrl.sortKey === 'id' && ctrl.reverse">↓</span>
+          </span>
+        </th>
+
+        <th ng-click="ctrl.ordenarPor('nombre')" ng-class="{'active': ctrl.sortKey === 'nombre'}">
+          Nombre
+          <span class="sort-icon" ng-class="{'active': ctrl.sortKey === 'nombre'}">
+            <span ng-if="ctrl.sortKey === 'nombre' && !ctrl.reverse">↑</span>
+            <span ng-if="ctrl.sortKey === 'nombre' && ctrl.reverse">↓</span>
+          </span>
+        </th>
+
+        <th ng-click="ctrl.ordenarPor('email')" ng-class="{'active': ctrl.sortKey === 'email'}">
+          Email
+          <span class="sort-icon" ng-class="{'active': ctrl.sortKey === 'email'}">
+            <span ng-if="ctrl.sortKey === 'email' && !ctrl.reverse">↑</span>
+            <span ng-if="ctrl.sortKey === 'email' && ctrl.reverse">↓</span>
+          </span>
+        </th>
+
+        <th ng-click="ctrl.ordenarPor('edad')" ng-class="{'active': ctrl.sortKey === 'edad'}">
+          Edad
+          <span class="sort-icon" ng-class="{'active': ctrl.sortKey === 'edad'}">
+            <span ng-if="ctrl.sortKey === 'edad' && !ctrl.reverse">↑</span>
+            <span ng-if="ctrl.sortKey === 'edad' && ctrl.reverse">↓</span>
+          </span>
+        </th>
+
+        <th>Acciones</th>
+      </tr>
+      <tr
+        ng-repeat="u in ctrl.usuariosFiltrados = (ctrl.usuarios | filter:ctrl.filtro | orderBy:ctrl.sortKey:ctrl.reverse)
+                    | limitTo: ctrl.pageSize : (ctrl.currentPage - 1) * ctrl.pageSize"
+      >
+        <td>{{u.id}}</td>
+        <td>{{u.nombre}}</td>
+        <td>{{u.email}}</td>
+        <td>{{u.edad}}</td>
+        <td>
+          <button ng-click="ctrl.editarUsuario(u)">Editar</button>
+          <button ng-click="ctrl.eliminarUsuario(u.id)">Eliminar</button>
+        </td>
+      </tr>
+    </table>
+    <!-- 🔹 Controles de paginación -->
+    <div class="paginacion" ng-if="ctrl.usuariosFiltrados.length">
+      <button ng-disabled="ctrl.currentPage === 1" ng-click="ctrl.prevPage()">Anterior</button>
+      Página {{ctrl.currentPage}} de {{ctrl.numPaginas()}}
+      <button ng-disabled="ctrl.currentPage === ctrl.numPaginas()" ng-click="ctrl.nextPage()">Siguiente</button>
+    </div>
+  </body>
+</html>
