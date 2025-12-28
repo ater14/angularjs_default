@@ -1,0 +1,20 @@
+[ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+/* Animación simple para cuando queden pocos segundos */
+.animate-pulse {
+  animation: opacityPulse 1s infinite;
+}
+@keyframes opacityPulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}

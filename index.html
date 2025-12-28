@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="aterApp">
+<html lang="en" data-ng-app="aterApp">
   <head>
-    <meta charset="UTF-8" />
-    <title>CRUD AngularJS + PHP PDO</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <!-- App y servicios -->
-    <script src="app/controllers/usuarios.controller.js"></script>
-    <script src="app/services/usuariosService.js"></script>
-    <link href="style.css" rel="stylesheet" />
+    <base href="/winix_v2/" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
   </head>
-  <body ng-controller="Controller as ctrl">
-    <div ng-if="ctrl.alert.msj" ng-class="ctrl.alert.class" class="alert">{{ ctrl.alert.msj }}</div>
-    <form ng-submit="ctrl.save()">
-      <input type="hidden" ng-model="ctrl.item.id" />
-      <input type="text" ng-model="ctrl.item.nombre" placeholder="Nombre" required />
-      <input type="email" ng-model="ctrl.item.email" placeholder="Email" required />
-      <input type="number" ng-model="ctrl.item.edad" placeholder="Edad" required />
-      <button type="submit">{{ ctrl.item.id ? 'Actualizar' : 'Agregar' }}</button>
-      <button type="button" ng-click="ctrl.cancel()">Cancelar</button>
-    </form>
-    <p data-ng-repeat="i in ctrl.items">
-      {{i}}
-      <button ng-click="ctrl.selectItem(i)">Editar</button>
-      <button ng-click="ctrl.delete(i.id)">Eliminar</button>
-    </p>
+  <body ng-cloak>
+    <h1 data-ng-if="content">Mi App!</h1>
+    <div data-ng-if="content">
+      <h2 data-ng-if="user.isLogged">{{user}}</h2>
+      <a ui-sref="home">Go to Home</a>
+      <a ui-sref="dashboard">Go to Dashboard</a>
+      <a ui-sref="profile">Go to Profile</a>
+      <a href="" data-ng-click="logout()" data-ng-if="user.isLogged">Salir</a>
+      <p ng-if="user.isLogged">
+        La sesión expira en:
+        <span class="fw-bold" ng-class="{'text-danger animate-pulse': secondsLeft < 10, 'text-success': secondsLeft >= 10}"> {{ secondsLeft | secondsToDateTime | date:'mm:ss' }} </span>
+      </p>
+    </div>
+    <div ui-view></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="assets/libs/angular/angular.min.js"></script>
+    <script src="assets/libs/angular/angular-ui-router.js"></script>
+    <script src="assets/libs/angular/angular-ocLazyLoad.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/app.routes.js"></script>
+    <script src="app/app.run.js"></script>
+    <script src="app/app.filters.js"></script>
+    <script src="app/services/auth/auth.service.js"></script>
   </body>
 </html>
