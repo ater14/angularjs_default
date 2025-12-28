@@ -1,0 +1,11 @@
+# Dependencias
+node_modules/
+
+# Archivos de Gulp y construcción
+dist/
+.tmp/
+
+# Logs y archivos de sistema
+npm-debug.log*
+.DS_Store
+Thumbs.db

@@ -1,0 +1,32 @@
+{
+  "name": "angularjs_default",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ater14/angularjs_default.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ater14/angularjs_default/issues"
+  },
+  "homepage": "https://github.com/ater14/angularjs_default#readme",
+  "devDependencies": {
+    "del": "^8.0.1",
+    "gulp": "^5.0.1",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-ng-annotate": "^2.1.0",
+    "gulp-rename": "^2.1.0",
+    "gulp-uglify": "^3.0.2"
+  }
+}
