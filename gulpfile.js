@@ -82,10 +82,10 @@ gulp.task("build-index", function () {
 
 gulp.task("build-css", function () {
   return gulp
-    .src("assets/css/*.css")
+    .src("css/*.css")
     .pipe(cleanCSS())
     // .pipe(rename({ suffix: ".min" }))
-    .pipe(gulp.dest("dist/assets/css"));
+    .pipe(gulp.dest("dist/css"));
 });
 
 // Tarea principal
