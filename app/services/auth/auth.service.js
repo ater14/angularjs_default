@@ -43,7 +43,6 @@
       },
 
       updateProfile: function (name, role) {
-        console.log(role);
         user.name = name + " (Updated)";
         user.role = role;
         this.saveToStorage(true);
